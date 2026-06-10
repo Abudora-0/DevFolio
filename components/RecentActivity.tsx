@@ -16,17 +16,19 @@ export default function RecentActivity({ repos }: { repos: GithubRepo[] }) {
 
   return (
     <div className="animate-fade-in-up" style={{ animationDelay: "0.3s", animationFillMode: "both" }}>
-      <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1 flex items-center gap-2">
+      <h2 className="text-xs font-semibold uppercase tracking-widest mb-3 px-1 flex items-center gap-2" style={{ color: "#4a6080" }}>
         <Clock className="w-3.5 h-3.5" /> Recently Active
       </h2>
-      <div className="glass rounded-2xl divide-y divide-[#21262d]/60">
+      <div className="glass rounded-2xl divide-y" style={{ borderColor: "rgba(25,37,58,0.6)" }}>
         {repos.map(repo => (
           <a
             key={repo.id}
             href={repo.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 px-4 py-3.5 hover:bg-white/[0.03] transition-colors group"
+            className="flex items-center gap-3 px-4 py-3.5 transition-colors group"
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.02)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
           >
             {repo.language && (
               <span
@@ -35,14 +37,15 @@ export default function RecentActivity({ repos }: { repos: GithubRepo[] }) {
               />
             )}
             <div className="flex-1 min-w-0">
-              <span className="text-sm text-gray-300 group-hover:text-violet-300 transition-colors font-medium truncate block">
+              <span className="text-sm font-medium truncate block transition-colors group-hover:text-teal-300"
+                style={{ color: "#8fa8c4" }}>
                 {repo.name}
               </span>
               {repo.description && (
-                <span className="text-xs text-gray-600 truncate block">{repo.description}</span>
+                <span className="text-xs truncate block" style={{ color: "#2a3a50" }}>{repo.description}</span>
               )}
             </div>
-            <div className="flex items-center gap-3 text-xs text-gray-600 flex-shrink-0">
+            <div className="flex items-center gap-3 text-xs flex-shrink-0" style={{ color: "#2a3a50" }}>
               <span className="flex items-center gap-1"><Star className="w-3 h-3" />{repo.stargazers_count}</span>
               <span className="text-gray-700">{timeAgo(repo.updated_at)}</span>
             </div>

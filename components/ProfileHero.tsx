@@ -10,7 +10,7 @@ export default function ProfileHero({ profile }: { profile: ProcessedProfile }) 
     : null;
 
   // Use top language color for accent glow
-  const accentColor = languages[0]?.color ?? "#8b5cf6";
+  const accentColor = languages[0]?.color ?? "#2dd4bf";
 
   return (
     <div className="relative glass rounded-3xl overflow-hidden animate-fade-in-up">
@@ -48,7 +48,9 @@ export default function ProfileHero({ profile }: { profile: ProcessedProfile }) 
               href={user.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-gray-500 hover:text-violet-400 transition-colors text-sm mb-3"
+              className="inline-flex items-center gap-1 text-sm mb-3 transition-colors" style={{ color: "#4a6080" }}
+              onMouseEnter={(e: any) => (e.currentTarget.style.color = "#2dd4bf")}
+              onMouseLeave={(e: any) => (e.currentTarget.style.color = "#4a6080")}
             >
               @{user.login} <ExternalLink className="w-3 h-3" />
             </a>
@@ -60,7 +62,7 @@ export default function ProfileHero({ profile }: { profile: ProcessedProfile }) 
             )}
 
             {/* Meta */}
-            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-gray-500 mb-4">
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm mb-4" style={{ color: "#4a6080" }}>
               {user.company && (
                 <span className="flex items-center gap-1.5">
                   <Building2 className="w-3.5 h-3.5 flex-shrink-0" />
@@ -75,14 +77,20 @@ export default function ProfileHero({ profile }: { profile: ProcessedProfile }) 
               )}
               {website && (
                 <a href={website} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-violet-400 transition-colors truncate max-w-[200px]">
+                  className="flex items-center gap-1.5 transition-colors truncate max-w-[200px]"
+                  style={{ color: "#4a6080" }}
+                  onMouseEnter={(e: any) => (e.currentTarget.style.color = "#2dd4bf")}
+                  onMouseLeave={(e: any) => (e.currentTarget.style.color = "#4a6080")}>
                   <LinkIcon className="w-3.5 h-3.5 flex-shrink-0" />
                   {user.blog?.replace(/^https?:\/\//, "").replace(/\/$/, "")}
                 </a>
               )}
               {user.twitter_username && (
                 <a href={`https://twitter.com/${user.twitter_username}`} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-sky-400 transition-colors">
+                  className="flex items-center gap-1.5 transition-colors"
+                  style={{ color: "#4a6080" }}
+                  onMouseEnter={(e: any) => (e.currentTarget.style.color = "#38bdf8")}
+                  onMouseLeave={(e: any) => (e.currentTarget.style.color = "#4a6080")}>
                   <span className="text-xs font-bold">𝕏</span>
                   @{user.twitter_username}
                 </a>
@@ -98,12 +106,18 @@ export default function ProfileHero({ profile }: { profile: ProcessedProfile }) 
             {/* Follower pills */}
             <div className="flex gap-2 flex-wrap">
               <a href={`${user.html_url}?tab=followers`} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-gray-400 hover:text-white transition-colors">
+                className="flex items-center gap-1.5 text-xs px-3 py-1 rounded-full transition-all"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid var(--border)", color: "#4a6080" }}
+                onMouseEnter={(e: any) => { e.currentTarget.style.background="rgba(45,212,191,0.06)"; e.currentTarget.style.color="#c8d6e8"; e.currentTarget.style.borderColor="rgba(45,212,191,0.2)"; }}
+                onMouseLeave={(e: any) => { e.currentTarget.style.background="rgba(255,255,255,0.04)"; e.currentTarget.style.color="#4a6080"; e.currentTarget.style.borderColor="var(--border)"; }}>
                 <Users className="w-3 h-3" />
                 <strong className="text-white">{user.followers.toLocaleString()}</strong> followers
               </a>
               <a href={`${user.html_url}?tab=following`} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-gray-400 hover:text-white transition-colors">
+                className="flex items-center gap-1.5 text-xs px-3 py-1 rounded-full transition-all"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid var(--border)", color: "#4a6080" }}
+                onMouseEnter={(e: any) => { e.currentTarget.style.background="rgba(45,212,191,0.06)"; e.currentTarget.style.color="#c8d6e8"; e.currentTarget.style.borderColor="rgba(45,212,191,0.2)"; }}
+                onMouseLeave={(e: any) => { e.currentTarget.style.background="rgba(255,255,255,0.04)"; e.currentTarget.style.color="#4a6080"; e.currentTarget.style.borderColor="var(--border)"; }}>
                 <UserCheck className="w-3 h-3" />
                 <strong className="text-white">{user.following.toLocaleString()}</strong> following
               </a>

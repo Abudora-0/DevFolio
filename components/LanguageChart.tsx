@@ -11,7 +11,7 @@ export default function LanguageChart({ languages }: { languages: LangEntry[] })
   return (
     <div className="glass rounded-2xl p-5 animate-fade-in-up"
       style={{ animationDelay: "0.25s", animationFillMode: "both" }}>
-      <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+      <h2 className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#4a6080" }}>
         Languages
       </h2>
 
@@ -32,15 +32,15 @@ export default function LanguageChart({ languages }: { languages: LangEntry[] })
         {languages.map(lang => (
           <div key={lang.name} className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: lang.color }} />
-            <span className="text-sm text-gray-300 flex-1 min-w-0 truncate">{lang.name}</span>
+            <span className="text-sm flex-1 min-w-0 truncate" style={{ color: "#8fa8c4" }}>{lang.name}</span>
             <div className="flex items-center gap-2 flex-shrink-0">
-              <div className="w-16 h-1.5 bg-[#21262d] rounded-full overflow-hidden">
+              <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--border)" }}>
                 <div
                   className="h-full rounded-full transition-all duration-500"
                   style={{ width: `${lang.percent}%`, backgroundColor: lang.color }}
                 />
               </div>
-              <span className="text-xs text-gray-600 tabular-nums w-8 text-right">
+              <span className="text-xs tabular-nums w-8 text-right" style={{ color: "#2a3a50" }}>
                 {lang.percent}%
               </span>
             </div>

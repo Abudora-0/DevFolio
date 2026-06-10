@@ -16,7 +16,18 @@ export default function ShareButton({ username }: { username: string }) {
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-2 px-4 py-2 bg-[#161b22] border border-[#30363d] hover:border-violet-500/40 hover:bg-violet-500/5 text-gray-400 hover:text-white rounded-xl text-sm font-medium transition-all duration-150"
+      className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150"
+      style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-muted)", color: "#4a6080" }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = "rgba(45,212,191,0.35)";
+        e.currentTarget.style.color = "white";
+        e.currentTarget.style.background = "rgba(45,212,191,0.05)";
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = "var(--border-muted)";
+        e.currentTarget.style.color = "#4a6080";
+        e.currentTarget.style.background = "var(--bg-elevated)";
+      }}
     >
       {copied ? (
         <><Check className="w-3.5 h-3.5 text-green-400" /> Copied!</>

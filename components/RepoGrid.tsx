@@ -44,23 +44,27 @@ export default function RepoGrid({ repos }: { repos: GithubRepo[] }) {
     <div className="animate-fade-in-up" style={{ animationDelay: "0.2s", animationFillMode: "both" }}>
       {/* Header */}
       <div className="flex items-center justify-between mb-3 px-1 gap-3">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide flex-shrink-0">
+        <h2 className="text-xs font-semibold uppercase tracking-widest flex-shrink-0" style={{ color: "#4a6080" }}>
           Top Repositories
-          <span className="ml-2 text-gray-700 normal-case font-normal">({repos.length})</span>
+          <span className="ml-2 normal-case font-normal" style={{ color: "#2a3a50" }}>({repos.length})</span>
         </h2>
         <div className="flex items-center gap-2">
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-600" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#2a3a50" }} />
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search repos..."
-              className="bg-[#161b22] border border-[#21262d] rounded-xl pl-8 pr-7 py-1.5 text-xs text-white placeholder:text-gray-600 focus:outline-none focus:border-violet-500/50 transition-colors w-36 sm:w-44"
+              className="rounded-xl pl-8 pr-7 py-1.5 text-xs text-white placeholder:text-[#2a3a50] focus:outline-none transition-colors w-36 sm:w-44"
+              style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-muted)" }}
+              onFocus={e => (e.currentTarget.style.borderColor = "rgba(45,212,191,0.4)")}
+              onBlur={e => (e.currentTarget.style.borderColor = "var(--border-muted)")}
             />
             {search && (
               <button onClick={() => setSearch("")}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-600 hover:text-white">
+                className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white transition-colors"
+                style={{ color: "#2a3a50" }}>
                 <X className="w-3 h-3" />
               </button>
             )}
@@ -70,16 +74,23 @@ export default function RepoGrid({ repos }: { repos: GithubRepo[] }) {
           <div className="relative">
             <button
               onClick={() => setShowSort(!showSort)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#161b22] border border-[#21262d] rounded-xl text-xs text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs transition-colors hover:text-white"
+              style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-muted)", color: "#4a6080" }}
             >
               <ArrowUpDown className="w-3 h-3" />
               {SORT_LABELS[sort]}
             </button>
             {showSort && (
-              <div className="absolute top-full mt-1 right-0 bg-[#161b22] border border-[#30363d] rounded-xl p-1 z-20 shadow-xl min-w-[110px]">
+              <div className="absolute top-full mt-1 right-0 rounded-xl p-1 z-20 shadow-xl min-w-[110px]"
+                style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-muted)" }}>
                 {(Object.keys(SORT_LABELS) as SortKey[]).map(key => (
                   <button key={key} onClick={() => { setSort(key); setShowSort(false); }}
-                    className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition-colors ${sort === key ? "bg-violet-500/20 text-violet-300" : "text-gray-400 hover:text-white hover:bg-white/5"}`}>
+                    className="w-full text-left px-3 py-1.5 rounded-lg text-xs transition-colors"
+                    style={sort === key
+                      ? { background: "rgba(45,212,191,0.12)", color: "#2dd4bf" }
+                      : { color: "#4a6080" }}
+                    onMouseEnter={e => { if (sort !== key) { e.currentTarget.style.color = "white"; e.currentTarget.style.background = "rgba(255,255,255,0.05)"; } }}
+                    onMouseLeave={e => { if (sort !== key) { e.currentTarget.style.color = "#4a6080"; e.currentTarget.style.background = "transparent"; } }}>
                     {SORT_LABELS[key]}
                   </button>
                 ))}
@@ -91,8 +102,8 @@ export default function RepoGrid({ repos }: { repos: GithubRepo[] }) {
 
       {/* Repo cards */}
       {filtered.length === 0 ? (
-        <div className="glass rounded-2xl p-8 text-center text-sm text-gray-600">
-          No repositories match "{search}"
+        <div className="glass rounded-2xl p-8 text-center text-sm" style={{ color: "#2a3a50" }}>
+          No repositories match &ldquo;{search}&rdquo;
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -102,35 +113,45 @@ export default function RepoGrid({ repos }: { repos: GithubRepo[] }) {
               href={repo.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group glass rounded-2xl p-4 hover:border-violet-500/30 hover:bg-violet-500/[0.04] transition-all duration-200 flex flex-col gap-3"
+              className="group glass rounded-2xl p-4 transition-all duration-200 flex flex-col gap-3"
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = "rgba(45,212,191,0.25)";
+                e.currentTarget.style.background = "rgba(45,212,191,0.03)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = "var(--border)";
+                e.currentTarget.style.background = "rgba(9,13,20,0.8)";
+              }}
             >
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-white text-sm group-hover:text-violet-300 transition-colors leading-tight">
+                <h3 className="font-semibold text-white text-sm leading-tight transition-colors group-hover:text-teal-300">
                   {repo.name}
                 </h3>
-                <ExternalLink className="w-3.5 h-3.5 text-gray-700 group-hover:text-violet-400 transition-colors flex-shrink-0 mt-0.5" />
+                <ExternalLink className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 transition-colors group-hover:text-teal-400"
+                  style={{ color: "#2a3a50" }} />
               </div>
 
-              <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 flex-1 min-h-[2.5rem]">
+              <p className="text-xs leading-relaxed line-clamp-2 flex-1 min-h-[2.5rem]" style={{ color: "#4a6080" }}>
                 {repo.description || <span className="italic">No description</span>}
               </p>
 
               {repo.topics.length > 0 && (
                 <div className="flex flex-wrap gap-1">
                   {repo.topics.slice(0, 3).map(t => (
-                    <span key={t} className="text-[10px] px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/15">
+                    <span key={t} className="text-[10px] px-2 py-0.5 rounded-full"
+                      style={{ background: "rgba(45,212,191,0.08)", color: "#2dd4bf", border: "1px solid rgba(45,212,191,0.15)" }}>
                       {t}
                     </span>
                   ))}
                   {repo.topics.length > 3 && (
-                    <span className="text-[10px] px-2 py-0.5 bg-white/5 text-gray-600 rounded-full">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: "rgba(255,255,255,0.04)", color: "#2a3a50" }}>
                       +{repo.topics.length - 3}
                     </span>
                   )}
                 </div>
               )}
 
-              <div className="flex items-center gap-3 text-xs text-gray-600 border-t border-white/5 pt-2.5 mt-auto">
+              <div className="flex items-center gap-3 text-xs pt-2.5 mt-auto" style={{ color: "#2a3a50", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                 {repo.language && (
                   <span className="flex items-center gap-1.5 flex-shrink-0">
                     <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getLangColor(repo.language) }} />

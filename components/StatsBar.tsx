@@ -31,7 +31,7 @@ export default function StatsBar({ profile }: { profile: ProcessedProfile }) {
   return (
     <div className="glass rounded-2xl animate-fade-in-up overflow-hidden"
       style={{ animationDelay: "0.1s", animationFillMode: "both" }}>
-      <div className="flex flex-wrap divide-x divide-[#21262d]">
+      <div className="flex flex-wrap divide-x divide-[#19253a]">
         <Stat
           icon={<BookOpen className="w-4 h-4 text-blue-400" />}
           iconBg="bg-blue-500/10"
@@ -51,8 +51,8 @@ export default function StatsBar({ profile }: { profile: ProcessedProfile }) {
           value={totalForks}
         />
         <Stat
-          icon={<Code2 className="w-4 h-4 text-violet-400" />}
-          iconBg="bg-violet-500/10"
+          icon={<Code2 className="w-4 h-4 text-teal-400" />}
+          iconBg="bg-teal-500/10"
           label="Languages"
           value={languages.length}
         />
