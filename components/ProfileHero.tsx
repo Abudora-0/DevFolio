@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { MapPin, Building2, LinkIcon, Calendar, ExternalLink, Users, UserCheck } from "lucide-react";
 import { ProcessedProfile, getLangColor } from "@/lib/github";

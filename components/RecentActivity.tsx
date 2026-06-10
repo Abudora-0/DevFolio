@@ -1,3 +1,5 @@
+"use client";
+
 import { Clock, GitFork, Star } from "lucide-react";
 import { GithubRepo, getLangColor } from "@/lib/github";
 
